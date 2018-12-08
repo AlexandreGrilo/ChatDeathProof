@@ -6,22 +6,36 @@ import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
 
-/**
- * Created by codecadet on 01/11/2018.
- */
+
 public class ChatClient {
 
     private Socket server;
-    private String name;
     private String host;
     private int port;
 
-    public ChatClient(String name, String host, int port) {
-        this.name = name;
+    /**
+     *
+     * @param args
+     */
+    public static void main(String[] args) {
+
+        ChatClient client = new ChatClient("localhost", 8080);
+        client.start();
+    }
+
+    /**
+     *
+     * @param host
+     * @param port
+     */
+    public ChatClient(String host, int port) {
         this.host = host;
         this.port = port;
     }
 
+    /**
+     *
+     */
     public void start() {
 
         try {
@@ -35,25 +49,26 @@ public class ChatClient {
 
                         try {
                             BufferedReader serverIn = new BufferedReader(new InputStreamReader(server.getInputStream()));
-                            System.out.println("Message from server:~ " + serverIn.readLine());
+                            System.out.println(serverIn.readLine());
                         } catch (IOException e) {
                             System.out.println("IO Exception: " + e.getMessage());
                         }
                     }
                 });
 
+                thread.start();
+
                 PrintWriter serverOut = new PrintWriter(server.getOutputStream(), true);
                 BufferedReader systemIn = new BufferedReader(new InputStreamReader(System.in));
 
                 String message = systemIn.readLine();
-                serverOut.println(name + ":~ " + message);
+                serverOut.println(message);
+
             }
-
-
         } catch (IOException e) {
             System.out.println("IO Exception: " + e.getMessage());
+            System.exit(1);
         }
-
     }
 
 }
