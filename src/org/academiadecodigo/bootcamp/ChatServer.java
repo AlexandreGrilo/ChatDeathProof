@@ -41,9 +41,9 @@ public class ChatServer {
 
         try {
             serverSocket = new ServerSocket(port);
-            logger.log(Level.INFO, "server bind to " + getAddres(serverSocket));
+            logger.log(Level.INFO, Message.SERVER_BIND  + getAddres(serverSocket));
         } catch (IOException e) {
-            System.out.println("IO Exception: " + e.getMessage());
+            System.out.println(Message.IO_EXCEPTION + e.getMessage());
         }
     }
 
@@ -63,7 +63,7 @@ public class ChatServer {
             }
 
         } catch (IOException e) {
-            logger.log(Level.SEVERE, "could not bind to port " + port);
+            logger.log(Level.SEVERE, Message.SERVER_NOT_BIND + port);
             logger.log(Level.SEVERE, e.getMessage());
             System.exit(1);
         }
@@ -134,42 +134,43 @@ public class ChatServer {
                 serverIn = new BufferedReader(new InputStreamReader(client.getInputStream()));
                 systemOut = new PrintWriter(client.getOutputStream(), true);
 
-                systemOut.println("Insert your username: ");
+                systemOut.println(Message.INSERT_NAME);
                 name = serverIn.readLine();
 
                 if (name.equals("")) {
-                    systemOut.println("### No fakes here, byebye! ###");
+                    systemOut.println(Message.NAME_NULL);
                     client.close();
                     return;
                 }
-                systemOut.println("### WELCOME TO THE GRILO'S CHAT! ###\n\nText 'exit' if you want to go out. Have fun! =)\n");
-                sendAll(name, " joined in the chat.");
-                System.out.println(name + " connected.");
+                systemOut.println(Message.WELCOME);
+                sendAll(name, Message.JOINED);
+                System.out.println(name + Message.CONNECTED);
 
                 while (true) {
                     String message = serverIn.readLine();
 
-                    if (message.equals("exit")) {
-                        systemOut.println("### Thank you for your visit! ###");
-                        sendAll(name, " leaved the chat.");
+                    if (message.equals(Message.EXIT)) {
+                        systemOut.println(Message.THANKS);
+                        sendAll(name, Message.LEAVED_THE_CHAT);
                         client.close();
                         clientHandlers.remove(this);
                         continue;
                     }
+
                     sendAll(name, message);
                 }
 
             } catch (IOException e) {
-                System.out.println("IO Exception: " + e.getMessage());
+                System.out.println(Message.IO_EXCEPTION + e.getMessage());
 
             } finally {
                 try {
                     client.close();
                     clientHandlers.remove(this);
                 } catch (IOException e) {
-                    System.out.println("IO Exception: " + e.getMessage());
+                    System.out.println(Message.IO_EXCEPTION + e.getMessage());
                 }
-                System.out.println(name + " disconnected.");
+                System.out.println(name + Message.DISCONNECTED);
             }
         }
 

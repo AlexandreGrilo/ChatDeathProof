@@ -19,7 +19,7 @@ public class ChatClient {
      */
     public static void main(String[] args) {
 
-        ChatClient client = new ChatClient("localhost", 8080);
+        ChatClient client = new ChatClient(Message.LOCAL_HOST, 8080);
         client.start();
     }
 
@@ -51,7 +51,7 @@ public class ChatClient {
                             BufferedReader serverIn = new BufferedReader(new InputStreamReader(server.getInputStream()));
                             System.out.println(serverIn.readLine());
                         } catch (IOException e) {
-                            System.out.println("IO Exception: " + e.getMessage());
+                            System.out.println(Message.IO_EXCEPTION + e.getMessage());
                         }
                     }
                 });
@@ -66,7 +66,7 @@ public class ChatClient {
 
             }
         } catch (IOException e) {
-            System.out.println("IO Exception: " + e.getMessage());
+            System.out.println(Message.IO_EXCEPTION + e.getMessage());
             System.exit(1);
         }
     }
