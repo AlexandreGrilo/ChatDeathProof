@@ -5,19 +5,25 @@ public class Message {
 
     public static final String INSERT_NAME = "Insert your username: ";
 
-    public static final String NAME_NULL = "### You have to insert a name! ###";
+    public static final String NAME_NULL = "### You have to insert a unique name and not null! ###";
 
-    public static final String WELCOME = "### WELCOME TO THE GRILO'S CHAT! ###\n\nText '/exit' if you want to go out. Have fun! =)\n";
+    public static final String WELCOME = "\n### WELCOME TO THE GRILO'S CHAT! ###\n\n";
+
+    public static final String INSTRUCTIONS = "Instructions:\n/pm => send a private message.\n/clients => show the client list.\n/exit => disconnect from the chat.\n\nHave fun! =)\n";
 
     public static final String JOINED = " joined in the chat.";
 
-    public static final String CONNECTED = " connected.";
+    public static final String CONNECTED = " connected at ";
 
     public static final String EXIT = "/exit";
 
-    public static final String THANKS = "### Thank you for your visit! ###";
+    public static final String PM = "/pm";
 
-    public static final String LEAVED_THE_CHAT = " leaved the chat.";
+    public static final String CLIENTS = "/clients";
+
+    public static final String THANKS = "### Thanks for your visit! ###";
+
+    public static final String LEFT_THE_CHAT = " left the chat.";
 
     public static final String DISCONNECTED = " disconnected.";
 
